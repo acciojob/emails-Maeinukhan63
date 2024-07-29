@@ -33,19 +33,9 @@ public class Workspace extends Gmail{
         }
 
         // Sort meetings by end time
-        Collections.sort(calendar, Comparator.comparing(Meeting::getEndTime));
+        
 
-        int count = 0;
-        LocalTime lastEndTime = LocalTime.MIN;
-
-        for (Meeting meeting : calendar) {
-            if (meeting.getStartTime().isAfter(lastEndTime)) {
-                count++;
-                lastEndTime = meeting.getEndTime();
-            }
-        }
-
-        return count;
+        return calander.size();
     }
 
 }
