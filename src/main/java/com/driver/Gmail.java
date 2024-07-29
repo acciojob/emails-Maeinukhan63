@@ -6,12 +6,12 @@ import java.util.Iterator;
 
 public class Gmail extends Email {
 
-    int inboxCapacity; //maximum number of mails inbox can store
+    private int inboxCapacity; //maximum number of mails inbox can store
     //Inbox: Stores mails. Each mail has date (Date), sender (String), message (String). It is guaranteed that message is distinct for all mails.
     //Trash: Stores mails. Each mail has date (Date), sender (String), message (String)
 
-    ArrayList<Mail> inbox;
-    ArrayList<Mail> trash;
+    private ArrayList<Mail> inbox;
+    private ArrayList<Mail> trash;
 
     public Gmail(String emailId, int inboxCapacity) {
         super(emailId);
@@ -27,10 +27,8 @@ public class Gmail extends Email {
         // 1. Each mail in the inbox is distinct.
         // 2. The mails are received in non-decreasing order. This means that the date of a new mail is greater than equal to the dates of mails received already.
         if(inbox.size()>inboxCapacity){
-            if(!inbox.isEmpty()){
                 Mail oldestMail = inbox.remove(0); // Remove the oldest mail
                 trash.add(oldestMail); 
-            }
         }
 
         inbox.add(new Mail(date, sender, message));
@@ -41,14 +39,16 @@ public class Gmail extends Email {
     public void deleteMail(String message){
         // Each message is distinct
         // If the given message is found in any mail in the inbox, move the mail to trash, else do nothing
-        Iterator<Mail> iterator = inbox.iterator();
-        while (iterator.hasNext()) {
-            Mail mail = iterator.next();
+        Mail toRemove = null;
+        for (Mail mail : inbox) {
             if (mail.getMessage().equals(message)) {
-                iterator.remove(); // Remove from inbox
-                trash.add(mail); // Add to trash
-                return;
+                toRemove = mail;
+                break;
             }
+        }
+        if (toRemove != null) {
+            inbox.remove(toRemove);
+            trash.add(toRemove);
         }
     }
 
