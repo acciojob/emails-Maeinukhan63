@@ -35,7 +35,7 @@ public class Workspace extends Gmail{
         // Sort meetings by end time
         
 
-        return calander.size();
+        return calendar.size();
     }
 
 }
