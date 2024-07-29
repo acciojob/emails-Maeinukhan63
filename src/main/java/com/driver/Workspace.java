@@ -47,7 +47,7 @@ public class Workspace extends Gmail{
         return count;
     }
 
-    public class Meeting {
+    public class Workspace extends Meeting {
         private LocalTime startTime;
         private LocalTime endTime;
 
